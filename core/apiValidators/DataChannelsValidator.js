@@ -38,7 +38,7 @@
                     var RTCPeerConnection
                     if (window.webkitRTCPeerConnection) {
                         RTCPeerConnection = window.webkitRTCPeerConnection;
-                        var SERVER = "stun:stun.l.google.com:19302";
+                        var SERVER = "stun.xten.com";
 
                         servers = {iceServers:[
                             {url:"stun:" + SERVER}
@@ -89,4 +89,3 @@
 
 })
     ();
-

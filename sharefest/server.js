@@ -39,6 +39,7 @@ app.configure('development', function () {
     ws.instance.start(tracker.instance, server, null, config.clientTimeout);
 //    signaling.start(server);
     console.log('here I am');
+    peer5.setLogLevel(config.logLevel);
 });
 
 app.configure('production', function () {

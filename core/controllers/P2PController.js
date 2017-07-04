@@ -230,6 +230,7 @@
             }, this]);
 
             radio('connectionReady').subscribe([function (targetId) {
+                console.log(this.peerConnections);
                 if (this.peerConnections[targetId])
                     peer5.warn("peerConnection to " + targetId + " was initialized, but we already have a connection to him");
                 else {
@@ -301,6 +302,8 @@
                 this.peerConnectionImpl = peer5.core.transport.PeerConnectionImpl;
                 peer5.config.MAX_PENDING_CHUNKS = peer5.config.MOZ_MAX_PENDING_CHUNKS; //a workaround for mozilla
             } else if (window.webkitRTCPeerConnection) {
+                this.peerConnectionImpl = peer5.core.transport.PeerConnectionImpl;
+            }else if (window.RTCPeerConnection) {
                 this.peerConnectionImpl = peer5.core.transport.PeerConnectionImpl;
             }
         },

@@ -248,26 +248,26 @@
             this.errorHandler = function (e) {
                 var msg = '';
                 switch (e.code) {
-                    case FileError.QUOTA_EXCEEDED_ERR:
+                    case 10:
                         msg = 'QUOTA_EXCEEDED_ERR';
                         break;
-                    case FileError.NOT_FOUND_ERR:
+                    case 1:
                         msg = 'NOT_FOUND_ERR';
                         break;
-                    case FileError.SECURITY_ERR:
+                    case 2:
                         msg = 'SECURITY_ERR';
                         break;
-                    case FileError.INVALID_MODIFICATION_ERR:
+                    case 9:
                         msg = 'INVALID_MODIFICATION_ERR';
                         break;
-                    case FileError.INVALID_STATE_ERR:
+                    case 7:
                         msg = 'INVALID_STATE_ERR';
                         break;
                     default:
                         msg = 'Unknown Error';
                         break;
                 };
-                peer5.warn('File system error: ' + msg);
+                peer5.warn('File system error: ' + e);
             };
         }
     });

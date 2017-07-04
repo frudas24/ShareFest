@@ -13,6 +13,7 @@ module.exports.instance = new function () {
         var expireFunction = function (expiredId) {
             peer5.log('expired ' + expiredId);
             var socket = thi$.sockets[expiredId];
+            console.log(socket);
             if (socket) socket.close();
         };
         var wss = new WsServer(options);
@@ -26,7 +27,6 @@ module.exports.instance = new function () {
                 peer5.error("couldn't grab a domain from the websocket");
                 return;
             }
-
             socket.id = queryData.id;
             socket.token = queryData.token;
 
@@ -46,6 +46,7 @@ module.exports.instance = new function () {
                     if (!decoded) { peer5.warn('decoded message was empty');}
                     for (var i = 0; i < decoded.length; ++i) {
                         var entry = decoded[i];
+                        console.log(entry);
                         switch (entry.tag) {
                             case protocol.JOIN:
                                 tracker.join(socket.id, entry.swarmId, browserName, thi$, socket.ip, socket.token);
@@ -56,7 +57,7 @@ module.exports.instance = new function () {
                                 break;
                             case protocol.REPORT:
                                 entry.originBrowser = browserName;
-                                tracker.report(socket.id, entry, thi$, socket.ip, socket.token);
+                                tracker.report(socket.id, entry.swarmId, thi$);
                                 break;
                             case protocol.SDP:
                                 thi$.send(entry.destId,entry);
@@ -103,6 +104,7 @@ module.exports.instance = new function () {
         };
         this.send = function (socketId, commandObject) {
             var s = this.sockets.find(socketId);
+            console.log("find peer socket :" + s.id);
             if (s){
                 if(s.readyState == 1) {
                     s.send(binary.encode([commandObject]), {binary:true, mask:false},this.errorHandler);

@@ -8,7 +8,7 @@
             if (window.webkitRTCPeerConnection) {
                 this.RTCPeerConnection = webkitRTCPeerConnection;
                 this.RTCSessionDescription = RTCSessionDescription
-                this.useBase64 = true;
+                this.useBase64 = false; // both not use base64
                 if (this.reliable)
                     peer5.error("chrome hasn't implemented reliable dc yet");
                 else
@@ -27,6 +27,8 @@
                     this.dataChannelOptions = { outOfOrderAllowed:true, maxRetransmitNum:0 };
             }
             this.initiatePeerConnection(initiator);
+            console.log(this);
+            console.log("initialize p2p connections");
         },
 
         /** @public methods*/
@@ -226,11 +228,12 @@
             try {
                 peer5.info("webkitRTCPeerConnection");
                 if(window.mozRTCPeerConnection)
+                    // firefox use SCTP-based DataChannels
                     this.peerConnection = new this.RTCPeerConnection();
                 else
                     this.peerConnection = new this.RTCPeerConnection(
                         servers
-                        ,{ optional:[{ RtpDataChannels:true }]}
+                        ,{ optional:[{ RtpDataChannels:false }]} // set RTP to be false then use SCTP-based DataChannels, so could connected to firefox
                     );
                 this.peerConnection.candidates = {}; // to remember what candidates were added
             } catch (exception) {

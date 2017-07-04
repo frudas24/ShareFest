@@ -11,8 +11,9 @@ exports.SimpleTracker = ITracker.subClass({
         if (!fileInfo.swarmId) {
             fileInfo.swarmId = uuid.shortId();
         }
-
+        console.log("create swarm");
         swarms.addSwarm(fileInfo.swarmId, fileInfo);
+        console.log(fileInfo);
         this.join(peerId, fileInfo.swarmId, fileInfo.originBrowser, sender)
     },
 
@@ -44,7 +45,9 @@ exports.SimpleTracker = ITracker.subClass({
     },
 
     report:function(peerId,swarmId,sender){
+        console.log(swarmId);
         var swarm = swarms.getSwarm(swarmId);
+        console.log(swarm);
         if (swarm) {
             //match only when swarm has peers in it already
             if (swarm.count > 0) {
@@ -54,6 +57,8 @@ exports.SimpleTracker = ITracker.subClass({
                         peers.splice(i,1);
                 }
                 //create Match message
+                console.log(peers);
+                console.log(peerId);
                 if (peers && peers.length > 0 && peers[0]!=peerId) {
                     sender.send(peerId, new protocol.Match(swarm.id, peers, null, null, null));
                 }

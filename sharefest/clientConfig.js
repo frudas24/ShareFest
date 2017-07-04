@@ -7,7 +7,7 @@ peer5.config = {
     REPORT_INTERVAL:10000,
     STAT_CALC_INTERVAL:1000,
     MONITOR_INTERVAL:1000,
-    STUN_SERVERS:['stun.l.google.com:19302'],
+    STUN_SERVERS:['stun.xten.com'],
     TURN_SERVERS:[],
     TURN_CREDENTIALS:[],
     P2P_PREFETCH_THRESHOLD:100,
