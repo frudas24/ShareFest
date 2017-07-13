@@ -27,8 +27,6 @@
                     this.dataChannelOptions = { outOfOrderAllowed:true, maxRetransmitNum:0 };
             }
             this.initiatePeerConnection(initiator);
-            console.log(this);
-            console.log("initialize p2p connections");
         },
 
         /** @public methods*/
